@@ -1,3 +1,5 @@
+// ignore_for_file: camel_case_types, unused_element
+
 import 'package:flutter/material.dart';
 import 'package:ischool/config/responsive.dart';
 import 'package:ischool/config/size_config.dart';
@@ -21,6 +23,7 @@ class _HomepageState extends State<Homepage> {
 
   @override
   Widget build(BuildContext context) {
+    
     return Scaffold(
       drawer: Responsive.isDesktop(context)
           ? null
@@ -50,7 +53,7 @@ class _HomepageState extends State<Homepage> {
                   ]),
             ),
       backgroundColor: AppTheme.white,
-      appBar: AppBar(actions: [
+      appBar: AppBar(surfaceTintColor: Colors.white, actions: [
         if (Responsive.isDesktop(context))
           Expanded(
             flex: 9,
@@ -96,57 +99,257 @@ class _HomepageState extends State<Homepage> {
           flex: 1,
           child: Padding(
             padding: EdgeInsets.all(Responsive.isMobile(context) ? 1 : 8.0),
-            child: OutlinedButton(
-              onPressed: () {},
-              style: ButtonStyle(
-                side: WidgetStateProperty.all(
-                  BorderSide(
-                    color: AppTheme.accent,
-                  ),
-                ),
-              ),
-              child: Text(
-                "Login",
-                style:
-                    TextStyle(fontSize: Responsive.isMobile(context) ? 10 : 16),
-              ),
-            ),
+            child: const _loginBtn(),
           ),
         ),
       ]),
       body: SingleChildScrollView(
+        child: Column(children: [
+          const _hero_section(),
+          const SizedBox(height: 10),
+          Container(
+            width: SizeConfig.screenWidth,
+            height: SizeConfig.screenHeight,
+            color: Colors.red.shade300,
+          ),
+          const SizedBox(height: 10),
+          Container(
+            width: SizeConfig.screenWidth,
+            height: SizeConfig.screenHeight,
+            color: Colors.green.shade300,
+          ),
+          const SizedBox(height: 10),
+          const _contact_section(),
+        ]),
+      ),
+    );
+  }
+}
+
+class _contact_section extends StatelessWidget {
+  const _contact_section({
+    super.key,
+  });
+
+ 
+
+  @override
+  Widget build(BuildContext context) {
+
+    final TextEditingController emailController = TextEditingController();
+    final TextEditingController nameController = TextEditingController();
+    final TextEditingController messageController = TextEditingController();
+    return SizedBox(
+        width: SizeConfig.screenWidth,
+        height: SizeConfig.screenHeight,
         child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Column(children: [
-            Container(
-              width: SizeConfig.screenWidth,
-              height: SizeConfig.screenHeight,
-              color: Colors.blue.shade300,
-              child: const SizedBox(
-                height: double.infinity,
-                width: double.infinity,
-              ),
+          padding: const EdgeInsets.symmetric(
+              vertical: 20.0, horizontal: 30.0),
+          child: Row(children: [
+            Expanded(
+              flex: 1,
+              child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    const Text("Send a message"),
+                    const Text(
+                      "Contact Form",
+                      style: TextStyle(
+                        fontSize: 24,
+                        fontWeight: FontWeight.w700,
+                        color: Colors.black,
+                      ),
+                    ),
+                    _contactFormField(
+                      controller: nameController,
+                      labelText: 'Your Name',
+                      prefixIcon: const Icon(Icons.person_2_outlined),
+                    ),
+                    const SizedBox(height: 10),
+                    _contactFormField(
+                      controller: emailController,
+                      labelText: 'Email Address',
+                      keyboardType: TextInputType.emailAddress,
+                      prefixIcon: const Icon(Icons.email_outlined),
+                    ),
+                    const SizedBox(height: 10),
+                    _contactFormField(
+                      controller: messageController,
+                      labelText: 'Message Content',
+                      maxLines: 5,
+                    ),
+                    const SizedBox(height: 10),
+                    TextButton(
+                      onPressed: () {},
+                      style: ButtonStyle(
+                          backgroundColor:
+                              WidgetStateProperty.all(AppTheme.accent),
+                          padding: const WidgetStatePropertyAll(
+                              EdgeInsets.symmetric(
+                                  horizontal: 10.0, vertical: 5.0))),
+                      child: const Text(
+                        "Send Message",
+                        style: TextStyle(color: Colors.white),
+                      ),
+                    )
+                  ]),
             ),
-            const SizedBox(height: 10),
-            Container(
-              width: SizeConfig.screenWidth,
-              height: SizeConfig.screenHeight,
-              color: Colors.red.shade300,
-            ),
-            const SizedBox(height: 10),
-            Container(
-              width: SizeConfig.screenWidth,
-              height: SizeConfig.screenHeight,
-              color: Colors.green.shade300,
-            ),
-            const SizedBox(height: 10),
-            Container(
-              width: SizeConfig.screenWidth,
-              height: SizeConfig.screenHeight,
-              color: Colors.orange.shade300,
+            const SizedBox(width: 20),
+             Expanded(
+              flex: 1,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                const Text("We are Kingsly Academy"),
+                const Text(
+                  "Contact Us",
+                  style: TextStyle(
+                    fontSize: 24,
+                    fontWeight: FontWeight.w700,
+                    color: Colors.black,
+                  ),
+                ),
+    
+                const SizedBox(height:20),
+                const ListTile(leading:Icon(Icons.directions,), title: Text("Off Likoni -Mtongwe roads - Mombasa, Kenya"),),
+                const SizedBox(height: 5,),
+                const ListTile(leading:Icon(Icons.email_outlined,), title: Text("kinslybyrone17@gmail.com"),),
+                const SizedBox(height: 5,),
+                const ListTile(leading:Icon(Icons.call_outlined,), title: Text("+254720041750"),),
+                const SizedBox(height: 20,),
+    
+                Row(
+                  children:[
+                    IconButton(onPressed:(){},
+                    icon:const Icon(Icons.facebook_outlined)
+                    ),
+    
+                    const SizedBox(width:5),
+                    IconButton(onPressed:(){},
+                    icon:const Icon(Icons.discord_outlined)
+                    ),
+    
+                    const SizedBox(width:5),
+                  ]
+                )
+    
+    
+              ]),
             ),
           ]),
+        ));
+  }
+}
+
+class _contactFormField extends StatelessWidget {
+  final TextEditingController controller;
+  final Icon? prefixIcon;
+  final int? maxLines;
+  final TextInputType? keyboardType;
+  final String labelText;
+  const _contactFormField({
+    required this.controller,
+    this.prefixIcon,
+    this.maxLines,
+    this.keyboardType,
+    required this.labelText,
+  });
+
+  // @override
+  // void dispose() {
+  //   controller.dispose();
+  // }
+
+  @override
+  Widget build(BuildContext context) {
+    return TextField(
+      keyboardType: keyboardType ?? TextInputType.text,
+      maxLines: maxLines,
+      controller: controller,
+      decoration: InputDecoration(
+        filled: true,
+        fillColor: AppTheme.white,
+        prefixIcon: prefixIcon,
+        contentPadding: const EdgeInsets.all(15),
+        labelText: labelText,
+        enabledBorder: InputBorder.none,
+        focusedBorder: OutlineInputBorder(
+          borderSide: BorderSide(
+            color: AppTheme.accent,
+          ),
         ),
+      ),
+    );
+  }
+}
+
+class _hero_section extends StatelessWidget {
+  const _hero_section();
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: SizeConfig.screenWidth,
+      height: SizeConfig.screenHeight,
+      decoration: const BoxDecoration(
+        image: DecorationImage(
+            image: AssetImage('images/hero_bg.jpg'), fit: BoxFit.cover),
+      ),
+      child: Container(
+        height: SizeConfig.blockSizeHorizontal! * 4,
+        width: SizeConfig.blockSizeVertical! * 3,
+        alignment: const Alignment(-0.5, 0),
+        child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              Container(
+                width: SizeConfig.blockSizeHorizontal! * 1,
+                height: 5,
+                color: AppTheme.accent,
+              ),
+              ListTile(
+                  leading: Image.asset('images/logo.webp'),
+                  title: const Text(
+                    "KINGSLY",
+                    style: TextStyle(
+                        fontSize: 26,
+                        fontWeight: FontWeight.w700,
+                        color: Colors.white),
+                  ),
+                  subtitle: const Text("Analytics")),
+              const Text(
+                "Taking the burden \n away from daily \n administration \n tasks",
+                style: TextStyle(
+                    fontSize: 32,
+                    fontWeight: FontWeight.w700,
+                    color: Colors.white),
+              ),
+              const _loginBtn(),
+            ]),
+      ),
+    );
+  }
+}
+
+class _loginBtn extends StatelessWidget {
+  const _loginBtn();
+
+  @override
+  Widget build(BuildContext context) {
+    return OutlinedButton(
+      onPressed: () {},
+      style: ButtonStyle(
+        side: WidgetStateProperty.all(
+          BorderSide(
+            color: AppTheme.accent,
+          ),
+        ),
+      ),
+      child: Text(
+        "Login",
+        style: TextStyle(fontSize: Responsive.isMobile(context) ? 10 : 16),
       ),
     );
   }
