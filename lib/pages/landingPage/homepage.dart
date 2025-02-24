@@ -86,7 +86,7 @@ class _HomepageState extends State<Homepage> {
         Expanded(
           flex: 1,
           child: Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding: EdgeInsets.all(Responsive.isMobile(context) ? 1 : 8.0),
             child: OutlinedButton(
                 onPressed: () {},
                 style: ButtonStyle(
@@ -96,7 +96,11 @@ class _HomepageState extends State<Homepage> {
                     ),
                   ),
                 ),
-                child: const Text("Login")),
+                child: Text(
+                  "Login",
+                  style: TextStyle(
+                      fontSize: Responsive.isMobile(context) ? 10 : 16),
+                )),
           ),
         ),
       ]),
