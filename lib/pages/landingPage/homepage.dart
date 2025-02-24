@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ischool/config/responsive.dart';
+import 'package:ischool/config/size_config.dart';
 import 'package:ischool/utils/app_styles.dart';
 
 class Homepage extends StatefulWidget {
@@ -10,6 +11,14 @@ class Homepage extends StatefulWidget {
 }
 
 class _HomepageState extends State<Homepage> {
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      SizeConfig().init(context);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -88,22 +97,57 @@ class _HomepageState extends State<Homepage> {
           child: Padding(
             padding: EdgeInsets.all(Responsive.isMobile(context) ? 1 : 8.0),
             child: OutlinedButton(
-                onPressed: () {},
-                style: ButtonStyle(
-                  side: WidgetStateProperty.all(
-                    BorderSide(
-                      color: AppTheme.accent,
-                    ),
+              onPressed: () {},
+              style: ButtonStyle(
+                side: WidgetStateProperty.all(
+                  BorderSide(
+                    color: AppTheme.accent,
                   ),
                 ),
-                child: Text(
-                  "Login",
-                  style: TextStyle(
-                      fontSize: Responsive.isMobile(context) ? 10 : 16),
-                )),
+              ),
+              child: Text(
+                "Login",
+                style:
+                    TextStyle(fontSize: Responsive.isMobile(context) ? 10 : 16),
+              ),
+            ),
           ),
         ),
       ]),
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Column(children: [
+            Container(
+              width: SizeConfig.screenWidth,
+              height: SizeConfig.screenHeight,
+              color: Colors.blue.shade300,
+              child: const SizedBox(
+                height: double.infinity,
+                width: double.infinity,
+              ),
+            ),
+            const SizedBox(height: 10),
+            Container(
+              width: SizeConfig.screenWidth,
+              height: SizeConfig.screenHeight,
+              color: Colors.red.shade300,
+            ),
+            const SizedBox(height: 10),
+            Container(
+              width: SizeConfig.screenWidth,
+              height: SizeConfig.screenHeight,
+              color: Colors.green.shade300,
+            ),
+            const SizedBox(height: 10),
+            Container(
+              width: SizeConfig.screenWidth,
+              height: SizeConfig.screenHeight,
+              color: Colors.orange.shade300,
+            ),
+          ]),
+        ),
+      ),
     );
   }
 }

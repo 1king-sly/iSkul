@@ -32,5 +32,5 @@ class Responsive extends StatelessWidget {
     } else {
       return smallMobile!;
     }
-  }
+  } 
 }
