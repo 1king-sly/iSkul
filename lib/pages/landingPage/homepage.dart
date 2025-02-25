@@ -115,7 +115,9 @@ class _HomepageState extends State<Homepage> {
           Container(
             width: SizeConfig.screenWidth,
             height: SizeConfig.screenHeight! * 0.7,
-            padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 20),
+            padding: EdgeInsets.symmetric(
+                horizontal: Responsive.isMobile(context) ? 20 : 40,
+                vertical: 20),
             alignment: const Alignment(0, 0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -181,7 +183,9 @@ class _programCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: SizeConfig.blockSizeVertical! * 50,
-      width: SizeConfig.blockSizeHorizontal! * 30,
+      width: Responsive.isMobile(context)
+          ? SizeConfig.blockSizeHorizontal! * 80
+          : SizeConfig.blockSizeHorizontal! * 30,
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 25),
       decoration: const BoxDecoration(
         borderRadius: BorderRadius.all(
@@ -224,61 +228,129 @@ class _aboutSection extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: SizeConfig.screenWidth,
-      height: SizeConfig.screenHeight! * 0.7,
-      padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 50),
-      child: Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
-        Expanded(
-          flex: 1,
-          child: Container(
-            padding: const EdgeInsets.all(40.0),
-            width: double.infinity,
-            child: Column(
+      height: Responsive.isMobile(context)
+          ? SizeConfig.screenHeight! * 0.9
+          : SizeConfig.screenHeight! * 0.7,
+      padding: Responsive.isMobile(context)
+          ? const EdgeInsets.symmetric(horizontal: 10, vertical: 10)
+          : const EdgeInsets.symmetric(horizontal: 30, vertical: 50),
+      child: Responsive.isMobile(context)
+          ? Column(
               children: [
-                Row(mainAxisAlignment: MainAxisAlignment.start, children: [
-                  Container(
-                    height: 50,
-                    width: 4,
-                    color: AppTheme.accent,
+                Expanded(
+                  flex: 1,
+                  child: Container(
+                    padding: const EdgeInsets.all(40.0),
+                    width: double.infinity,
+                    child: Column(
+                      children: [
+                        Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              Container(
+                                height: 50,
+                                width: 4,
+                                color: AppTheme.accent,
+                              ),
+                              const SizedBox(width: 10),
+                              Expanded(
+                                flex: 1,
+                                child: Row(children: [
+                                  const Text(
+                                    "About",
+                                    style: TextStyle(
+                                        fontSize: 24,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                  const SizedBox(width: 10),
+                                  Text(
+                                    "Us",
+                                    style: TextStyle(
+                                      fontSize: 24,
+                                      color: AppTheme.accent,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  )
+                                ]),
+                              ),
+                            ]),
+                        const SizedBox(height: 10),
+                        const Text(
+                            "At Kingsly Academy, we are dedicated to transforming the way educational institutions operate by providing an efficient, user-friendly, and secure school management system. Our platform streamlines administrative tasks, enhances communication, and ensures seamless collaboration between students, teachers, parents, and administrators."),
+                      ],
+                    ),
                   ),
-                  const SizedBox(width: 10),
-                  Expanded(
-                    flex: 1,
-                    child: Row(children: [
-                      const Text(
-                        "About",
-                        style: TextStyle(
-                            fontSize: 24, fontWeight: FontWeight.bold),
-                      ),
-                      const SizedBox(width: 10),
-                      Text(
-                        "Us",
-                        style: TextStyle(
-                          fontSize: 24,
-                          color: AppTheme.accent,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      )
-                    ]),
+                ),
+                const SizedBox(width: 20),
+                Expanded(
+                  flex: 1,
+                  child: Container(
+                    width: double.infinity,
+                    decoration: const BoxDecoration(
+                      image: DecorationImage(
+                          image: AssetImage("images/hero_bg.webp")),
+                    ),
                   ),
-                ]),
-                const SizedBox(height: 10),
-                const Text(
-                    "At Kingsly Academy, we are dedicated to transforming the way educational institutions operate by providing an efficient, user-friendly, and secure school management system. Our platform streamlines administrative tasks, enhances communication, and ensures seamless collaboration between students, teachers, parents, and administrators."),
+                ),
               ],
-            ),
-          ),
-        ),
-        const SizedBox(width: 20),
-        Expanded(
-          flex: 1,
-          child: Container(
-            width: double.infinity,
-            decoration: const BoxDecoration(
-              image: DecorationImage(image: AssetImage("images/hero_bg.webp")),
-            ),
-          ),
-        ),
-      ]),
+            )
+          : Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
+              Expanded(
+                flex: 1,
+                child: Container(
+                  padding: const EdgeInsets.all(40.0),
+                  width: double.infinity,
+                  child: Column(
+                    children: [
+                      Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Container(
+                              height: 50,
+                              width: 4,
+                              color: AppTheme.accent,
+                            ),
+                            const SizedBox(width: 10),
+                            Expanded(
+                              flex: 1,
+                              child: Row(children: [
+                                const Text(
+                                  "About",
+                                  style: TextStyle(
+                                      fontSize: 24,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                                const SizedBox(width: 10),
+                                Text(
+                                  "Us",
+                                  style: TextStyle(
+                                    fontSize: 24,
+                                    color: AppTheme.accent,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                )
+                              ]),
+                            ),
+                          ]),
+                      const SizedBox(height: 10),
+                      const Text(
+                          "At Kingsly Academy, we are dedicated to transforming the way educational institutions operate by providing an efficient, user-friendly, and secure school management system. Our platform streamlines administrative tasks, enhances communication, and ensures seamless collaboration between students, teachers, parents, and administrators."),
+                    ],
+                  ),
+                ),
+              ),
+              const SizedBox(width: 20),
+              Expanded(
+                flex: 1,
+                child: Container(
+                  width: double.infinity,
+                  decoration: const BoxDecoration(
+                    image: DecorationImage(
+                        image: AssetImage("images/hero_bg.webp")),
+                  ),
+                ),
+              ),
+            ]),
     );
   }
 }
@@ -295,118 +367,242 @@ class _contactSection extends StatelessWidget {
     final TextEditingController messageController = TextEditingController();
     return SizedBox(
       width: SizeConfig.screenWidth,
-      height: SizeConfig.screenHeight! * 0.7,
+      height: Responsive.isMobile(context)
+          ? SizeConfig.screenHeight
+          : SizeConfig.screenHeight! * 0.7,
       child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 20.0, horizontal: 30.0),
-        child: Row(children: [
-          Expanded(
-            flex: 1,
-            child:
-                Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-              const Text("Send a message"),
-              const Text(
-                "Contact Form",
-                style: TextStyle(
-                  fontSize: 24,
-                  fontWeight: FontWeight.w700,
-                  color: Colors.black,
-                ),
-              ),
-              _contactFormField(
-                controller: nameController,
-                labelText: 'Your Name',
-                prefixIcon: const Icon(Icons.person_2_outlined),
-              ),
-              const SizedBox(height: 10),
-              _contactFormField(
-                controller: emailController,
-                labelText: 'Email Address',
-                keyboardType: TextInputType.emailAddress,
-                prefixIcon: const Icon(Icons.email_outlined),
-              ),
-              const SizedBox(height: 10),
-              _contactFormField(
-                controller: messageController,
-                labelText: 'Message Content',
-                maxLines: 5,
-              ),
-              const SizedBox(height: 10),
-              TextButton(
-                onPressed: () {},
-                style: ButtonStyle(
-                    backgroundColor: WidgetStateProperty.all(AppTheme.accent),
-                    padding: const WidgetStatePropertyAll(
-                        EdgeInsets.symmetric(horizontal: 10.0, vertical: 5.0))),
-                child: const Text(
-                  "Send Message",
-                  style: TextStyle(color: Colors.white),
-                ),
+        padding: const EdgeInsets.symmetric(vertical: 2.0, horizontal: 30.0),
+        child: Responsive.isMobile(context)
+            ? Column(
+                children: [
+                  Expanded(
+                    flex: 1,
+                    child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const Text("Send a message"),
+                          const Text(
+                            "Contact Form",
+                            style: TextStyle(
+                              fontSize: 24,
+                              fontWeight: FontWeight.w700,
+                              color: Colors.black,
+                            ),
+                          ),
+                          _contactFormField(
+                            controller: nameController,
+                            labelText: 'Your Name',
+                            prefixIcon: const Icon(Icons.person_2_outlined),
+                          ),
+                          const SizedBox(height: 10),
+                          _contactFormField(
+                            controller: emailController,
+                            labelText: 'Email Address',
+                            keyboardType: TextInputType.emailAddress,
+                            prefixIcon: const Icon(Icons.email_outlined),
+                          ),
+                          const SizedBox(height: 10),
+                          _contactFormField(
+                            controller: messageController,
+                            labelText: 'Message Content',
+                            maxLines: 5,
+                          ),
+                          const SizedBox(height: 10),
+                          TextButton(
+                            onPressed: () {},
+                            style: ButtonStyle(
+                                backgroundColor:
+                                    WidgetStateProperty.all(AppTheme.accent),
+                                padding: const WidgetStatePropertyAll(
+                                    EdgeInsets.symmetric(
+                                        horizontal: 10.0, vertical: 5.0))),
+                            child: const Text(
+                              "Send Message",
+                              style: TextStyle(color: Colors.white),
+                            ),
+                          )
+                        ]),
+                  ),
+                  const SizedBox(height: 20),
+                  Expanded(
+                    flex: 1,
+                    child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const Text("We are Kingsly Academy"),
+                          const Text(
+                            "Contact Us",
+                            style: TextStyle(
+                              fontSize: 24,
+                              fontWeight: FontWeight.w700,
+                              color: Colors.black,
+                            ),
+                          ),
+                          const SizedBox(height: 20),
+                          const ListTile(
+                            leading: Icon(
+                              Icons.directions,
+                            ),
+                            title: Text(
+                              "Off Likoni -Mtongwe roads - Mombasa, Kenya",
+                              style: TextStyle(fontSize: 12),
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 5,
+                          ),
+                          const ListTile(
+                            leading: Icon(
+                              Icons.email_outlined,
+                            ),
+                            title: Text(
+                              "kinslybyrone17@gmail.com",
+                              style: TextStyle(fontSize: 12),
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 5,
+                          ),
+                          const ListTile(
+                            leading: Icon(
+                              Icons.call_outlined,
+                            ),
+                            title: Text(
+                              "+254720041750",
+                              style: TextStyle(fontSize: 12),
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 20,
+                          ),
+                          Row(children: [
+                            IconButton(
+                                onPressed: () {},
+                                icon: const Icon(Icons.facebook_outlined)),
+                            const SizedBox(width: 5),
+                            IconButton(
+                                onPressed: () {},
+                                icon: const Icon(Icons.discord_outlined)),
+                            const SizedBox(width: 5),
+                          ])
+                        ]),
+                  ),
+                ],
               )
-            ]),
-          ),
-          const SizedBox(width: 20),
-          Expanded(
-            flex: 1,
-            child:
-                Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-              const Text("We are Kingsly Academy"),
-              const Text(
-                "Contact Us",
-                style: TextStyle(
-                  fontSize: 24,
-                  fontWeight: FontWeight.w700,
-                  color: Colors.black,
+            : Row(children: [
+                Expanded(
+                  flex: 1,
+                  child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const Text("Send a message"),
+                        const Text(
+                          "Contact Form",
+                          style: TextStyle(
+                            fontSize: 24,
+                            fontWeight: FontWeight.w700,
+                            color: Colors.black,
+                          ),
+                        ),
+                        _contactFormField(
+                          controller: nameController,
+                          labelText: 'Your Name',
+                          prefixIcon: const Icon(Icons.person_2_outlined),
+                        ),
+                        const SizedBox(height: 10),
+                        _contactFormField(
+                          controller: emailController,
+                          labelText: 'Email Address',
+                          keyboardType: TextInputType.emailAddress,
+                          prefixIcon: const Icon(Icons.email_outlined),
+                        ),
+                        const SizedBox(height: 10),
+                        _contactFormField(
+                          controller: messageController,
+                          labelText: 'Message Content',
+                          maxLines: 5,
+                        ),
+                        const SizedBox(height: 10),
+                        TextButton(
+                          onPressed: () {},
+                          style: ButtonStyle(
+                              backgroundColor:
+                                  WidgetStateProperty.all(AppTheme.accent),
+                              padding: const WidgetStatePropertyAll(
+                                  EdgeInsets.symmetric(
+                                      horizontal: 10.0, vertical: 5.0))),
+                          child: const Text(
+                            "Send Message",
+                            style: TextStyle(color: Colors.white),
+                          ),
+                        )
+                      ]),
                 ),
-              ),
-              const SizedBox(height: 20),
-              const ListTile(
-                leading: Icon(
-                  Icons.directions,
+                const SizedBox(width: 20),
+                Expanded(
+                  flex: 1,
+                  child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const Text("We are Kingsly Academy"),
+                        const Text(
+                          "Contact Us",
+                          style: TextStyle(
+                            fontSize: 24,
+                            fontWeight: FontWeight.w700,
+                            color: Colors.black,
+                          ),
+                        ),
+                        const SizedBox(height: 20),
+                        const ListTile(
+                          leading: Icon(
+                            Icons.directions,
+                          ),
+                          title: Text(
+                            "Off Likoni -Mtongwe roads - Mombasa, Kenya",
+                            style: TextStyle(fontSize: 12),
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 5,
+                        ),
+                        const ListTile(
+                          leading: Icon(
+                            Icons.email_outlined,
+                          ),
+                          title: Text(
+                            "kinslybyrone17@gmail.com",
+                            style: TextStyle(fontSize: 12),
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 5,
+                        ),
+                        const ListTile(
+                          leading: Icon(
+                            Icons.call_outlined,
+                          ),
+                          title: Text(
+                            "+254720041750",
+                            style: TextStyle(fontSize: 12),
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 20,
+                        ),
+                        Row(children: [
+                          IconButton(
+                              onPressed: () {},
+                              icon: const Icon(Icons.facebook_outlined)),
+                          const SizedBox(width: 5),
+                          IconButton(
+                              onPressed: () {},
+                              icon: const Icon(Icons.discord_outlined)),
+                          const SizedBox(width: 5),
+                        ])
+                      ]),
                 ),
-                title: Text(
-                  "Off Likoni -Mtongwe roads - Mombasa, Kenya",
-                  style: TextStyle(fontSize: 12),
-                ),
-              ),
-              const SizedBox(
-                height: 5,
-              ),
-              const ListTile(
-                leading: Icon(
-                  Icons.email_outlined,
-                ),
-                title: Text(
-                  "kinslybyrone17@gmail.com",
-                  style: TextStyle(fontSize: 12),
-                ),
-              ),
-              const SizedBox(
-                height: 5,
-              ),
-              const ListTile(
-                leading: Icon(
-                  Icons.call_outlined,
-                ),
-                title: Text(
-                  "+254720041750",
-                  style: TextStyle(fontSize: 12),
-                ),
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              Row(children: [
-                IconButton(
-                    onPressed: () {},
-                    icon: const Icon(Icons.facebook_outlined)),
-                const SizedBox(width: 5),
-                IconButton(
-                    onPressed: () {}, icon: const Icon(Icons.discord_outlined)),
-                const SizedBox(width: 5),
-              ])
-            ]),
-          ),
-        ]),
+              ]),
       ),
     );
   }
@@ -470,6 +666,7 @@ class _heroSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    SizeConfig().init(context);
     return Container(
       width: SizeConfig.screenWidth!,
       height: SizeConfig.screenHeight!,
@@ -487,8 +684,12 @@ class _heroSection extends StatelessWidget {
             width: double.infinity,
             alignment: const Alignment(-0.7, 0),
             child: Container(
-              height: SizeConfig.blockSizeVertical! * 50,
-              width: SizeConfig.blockSizeHorizontal! * 40,
+              height: Responsive.isMobile(context)
+                  ? SizeConfig.blockSizeVertical! * 90
+                  : SizeConfig.blockSizeVertical! * 50,
+              width: Responsive.isMobile(context)
+                  ? SizeConfig.blockSizeHorizontal! * 90
+                  : SizeConfig.blockSizeHorizontal! * 40,
               padding: const EdgeInsets.symmetric(horizontal: 20.0),
               child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -502,13 +703,18 @@ class _heroSection extends StatelessWidget {
                         leading: Image.asset(
                           'images/logo.webp',
                           fit: BoxFit.cover,
+                          width: 20,
+                          height: 20,
                         ),
-                        title: const Text(
-                          "KINGSLY",
-                          style: TextStyle(
-                              fontSize: 26,
-                              fontWeight: FontWeight.w700,
-                              color: Colors.white),
+                        title: const Expanded(
+                          flex: 1,
+                          child: Text(
+                            "KINGSLY",
+                            style: TextStyle(
+                                // fontSize: SizeConfig.textFontSize!,
+                                fontWeight: FontWeight.w700,
+                                color: Colors.white),
+                          ),
                         ),
                         subtitle: const Text("Academy")),
                     const Text(

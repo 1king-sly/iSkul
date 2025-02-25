@@ -6,6 +6,7 @@ class SizeConfig {
   static double? screenHeight;
   static double? blockSizeHorizontal;
   static double? blockSizeVertical;
+  static double? textFontSize;
 
   void init(BuildContext context) {
     _mediaQueryData = MediaQuery.of(context);
@@ -13,5 +14,6 @@ class SizeConfig {
     screenHeight = _mediaQueryData?.size.height;
     blockSizeHorizontal = screenWidth! / 100;
     blockSizeVertical = screenHeight! / 100;
+    textFontSize = screenWidth! / 10;
   }
 }
