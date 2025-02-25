@@ -23,6 +23,8 @@ class _HomepageState extends State<Homepage> {
 
   @override
   Widget build(BuildContext context) {
+    SizeConfig().init(context);
+
     return Scaffold(
       drawer: Responsive.isDesktop(context)
           ? null
@@ -106,11 +108,7 @@ class _HomepageState extends State<Homepage> {
         child: Column(children: [
           const _hero_section(),
           const SizedBox(height: 10),
-          Container(
-            width: SizeConfig.screenWidth,
-            height: SizeConfig.screenHeight,
-            color: Colors.red.shade300,
-          ),
+          const _aboutSection(),
           const SizedBox(height: 10),
           Container(
             width: SizeConfig.screenWidth,
@@ -125,6 +123,74 @@ class _HomepageState extends State<Homepage> {
   }
 }
 
+class _aboutSection extends StatelessWidget {
+  const _aboutSection({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: SizeConfig.screenWidth,
+      height: SizeConfig.screenHeight! * 0.7,
+      padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 50),
+      child: Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
+        Expanded(
+          flex: 1,
+          child: Container(
+            padding: const EdgeInsets.all(40.0),
+            width: double.infinity,
+            child: Column(
+              children: [
+                Row(mainAxisAlignment: MainAxisAlignment.start, children: [
+                  Container(
+                    height: 50,
+                    width: 4,
+                    color: AppTheme.accent,
+                  ),
+                  const SizedBox(width: 10),
+                  Expanded(
+                    flex: 1,
+                    child: Row(children: [
+                      const Text(
+                        "About",
+                        style: TextStyle(
+                            fontSize: 24, fontWeight: FontWeight.bold),
+                      ),
+                      const SizedBox(width: 10),
+                      Text(
+                        "Us",
+                        style: TextStyle(
+                          fontSize: 24,
+                          color: AppTheme.accent,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      )
+                    ]),
+                  ),
+                ]),
+                const SizedBox(height: 10),
+                const Text(
+                    "At Kingsly Academy, we are dedicated to transforming the way educational institutions operate by providing an efficient, user-friendly, and secure school management system. Our platform streamlines administrative tasks, enhances communication, and ensures seamless collaboration between students, teachers, parents, and administrators."),
+              ],
+            ),
+          ),
+        ),
+        const SizedBox(width: 20),
+        Expanded(
+          flex: 1,
+          child: Container(
+            width: double.infinity,
+            decoration: const BoxDecoration(
+              image: DecorationImage(image: AssetImage("images/hero_bg.webp")),
+            ),
+          ),
+        ),
+      ]),
+    );
+  }
+}
+
 class _contact_section extends StatelessWidget {
   const _contact_section({
     super.key,
@@ -132,8 +198,6 @@ class _contact_section extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    SizeConfig().init(context);
-
     final TextEditingController emailController = TextEditingController();
     final TextEditingController nameController = TextEditingController();
     final TextEditingController messageController = TextEditingController();
@@ -207,7 +271,10 @@ class _contact_section extends StatelessWidget {
                 leading: Icon(
                   Icons.directions,
                 ),
-                title: Text("Off Likoni -Mtongwe roads - Mombasa, Kenya"),
+                title: Text(
+                  "Off Likoni -Mtongwe roads - Mombasa, Kenya",
+                  style: TextStyle(fontSize: 12),
+                ),
               ),
               const SizedBox(
                 height: 5,
@@ -216,7 +283,10 @@ class _contact_section extends StatelessWidget {
                 leading: Icon(
                   Icons.email_outlined,
                 ),
-                title: Text("kinslybyrone17@gmail.com"),
+                title: Text(
+                  "kinslybyrone17@gmail.com",
+                  style: TextStyle(fontSize: 12),
+                ),
               ),
               const SizedBox(
                 height: 5,
@@ -225,7 +295,10 @@ class _contact_section extends StatelessWidget {
                 leading: Icon(
                   Icons.call_outlined,
                 ),
-                title: Text("+254720041750"),
+                title: Text(
+                  "+254720041750",
+                  style: TextStyle(fontSize: 12),
+                ),
               ),
               const SizedBox(
                 height: 20,
@@ -305,7 +378,6 @@ class _hero_section extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    SizeConfig().init(context);
     return Container(
       width: SizeConfig.screenWidth!,
       height: SizeConfig.screenHeight!,
