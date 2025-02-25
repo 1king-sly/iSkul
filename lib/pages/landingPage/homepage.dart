@@ -3,6 +3,8 @@
 import 'package:flutter/material.dart';
 import 'package:ischool/config/responsive.dart';
 import 'package:ischool/config/size_config.dart';
+import 'package:ischool/data/classes.dart';
+import 'package:ischool/data/data.dart';
 import 'package:ischool/utils/app_styles.dart';
 
 class Homepage extends StatefulWidget {
@@ -106,18 +108,108 @@ class _HomepageState extends State<Homepage> {
       ]),
       body: SingleChildScrollView(
         child: Column(children: [
-          const _hero_section(),
+          const _heroSection(),
           const SizedBox(height: 10),
           const _aboutSection(),
           const SizedBox(height: 10),
           Container(
             width: SizeConfig.screenWidth,
-            height: SizeConfig.screenHeight,
-            color: Colors.green.shade300,
+            height: SizeConfig.screenHeight! * 0.7,
+            padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 20),
+            alignment: const Alignment(0, 0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+                  const Text(
+                    "Our",
+                    style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                  ),
+                  const SizedBox(width: 10),
+                  Text(
+                    "Programs",
+                    style: TextStyle(
+                      fontSize: 24,
+                      color: AppTheme.accent,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  )
+                ]),
+                const SizedBox(
+                  height: 20,
+                ),
+                SizedBox(
+                  width: double.infinity,
+                  height: SizeConfig.screenHeight! * 0.5,
+                  child: ListView.separated(
+                      scrollDirection: Axis.horizontal,
+                      itemCount: programs.length,
+                      separatorBuilder: (context, index) =>
+                          const SizedBox(width: 20),
+                      itemBuilder: (context, index) {
+                        Program program = programs[index];
+                        return _programCard(
+                          icon: program.icon,
+                          title: program.title,
+                          body: program.body,
+                        );
+                      }),
+                ),
+              ],
+            ),
           ),
           const SizedBox(height: 10),
-          const _contact_section(),
+          const _contactSection(),
         ]),
+      ),
+    );
+  }
+}
+
+class _programCard extends StatelessWidget {
+  final IconData icon;
+  final String title;
+  final String body;
+  const _programCard({
+    super.key,
+    required this.icon,
+    required this.title,
+    required this.body,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: SizeConfig.blockSizeVertical! * 50,
+      width: SizeConfig.blockSizeHorizontal! * 30,
+      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 25),
+      decoration: const BoxDecoration(
+        borderRadius: BorderRadius.all(
+          Radius.circular(25),
+        ),
+        color: Colors.white,
+      ),
+      child: Column(
+        mainAxisSize: MainAxisSize.max,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          Icon(
+            icon,
+            color: AppTheme.accent,
+            size: 45.0,
+          ),
+          Text(
+            title,
+            style: TextStyle(
+              fontSize: 20,
+              color: Colors.grey.shade600,
+            ),
+          ),
+          Expanded(
+            child: Text(body),
+          )
+        ],
       ),
     );
   }
@@ -191,8 +283,8 @@ class _aboutSection extends StatelessWidget {
   }
 }
 
-class _contact_section extends StatelessWidget {
-  const _contact_section({
+class _contactSection extends StatelessWidget {
+  const _contactSection({
     super.key,
   });
 
@@ -373,8 +465,8 @@ class _contactFormField extends StatelessWidget {
   }
 }
 
-class _hero_section extends StatelessWidget {
-  const _hero_section();
+class _heroSection extends StatelessWidget {
+  const _heroSection();
 
   @override
   Widget build(BuildContext context) {
