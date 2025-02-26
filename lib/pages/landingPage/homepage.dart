@@ -233,14 +233,14 @@ class _aboutSection extends StatelessWidget {
           : SizeConfig.screenHeight! * 0.7,
       padding: Responsive.isMobile(context)
           ? const EdgeInsets.symmetric(horizontal: 10, vertical: 10)
-          : const EdgeInsets.symmetric(horizontal: 30, vertical: 50),
+          : const EdgeInsets.symmetric(horizontal: 30, vertical: 30),
       child: Responsive.isMobile(context)
           ? Column(
               children: [
                 Expanded(
                   flex: 1,
                   child: Container(
-                    padding: const EdgeInsets.all(40.0),
+                    padding: const EdgeInsets.all(8.0),
                     width: double.infinity,
                     child: Column(
                       children: [
@@ -276,7 +276,9 @@ class _aboutSection extends StatelessWidget {
                             ]),
                         const SizedBox(height: 10),
                         const Text(
-                            "At Kingsly Academy, we are dedicated to transforming the way educational institutions operate by providing an efficient, user-friendly, and secure school management system. Our platform streamlines administrative tasks, enhances communication, and ensures seamless collaboration between students, teachers, parents, and administrators."),
+                          "At Kingsly Academy, we are dedicated to transforming the way educational institutions operate by providing an efficient, user-friendly, and secure school management system. Our platform streamlines administrative tasks, enhances communication, and ensures seamless collaboration between students, teachers, parents, and administrators.",
+                          overflow: TextOverflow.clip,
+                        ),
                       ],
                     ),
                   ),
@@ -368,7 +370,7 @@ class _contactSection extends StatelessWidget {
     return SizedBox(
       width: SizeConfig.screenWidth,
       height: Responsive.isMobile(context)
-          ? SizeConfig.screenHeight
+          ? SizeConfig.screenHeight! * 1.3
           : SizeConfig.screenHeight! * 0.7,
       child: Padding(
         padding: const EdgeInsets.symmetric(vertical: 2.0, horizontal: 30.0),
@@ -411,11 +413,13 @@ class _contactSection extends StatelessWidget {
                           TextButton(
                             onPressed: () {},
                             style: ButtonStyle(
-                                backgroundColor:
-                                    WidgetStateProperty.all(AppTheme.accent),
-                                padding: const WidgetStatePropertyAll(
-                                    EdgeInsets.symmetric(
-                                        horizontal: 10.0, vertical: 5.0))),
+                              backgroundColor:
+                                  WidgetStateProperty.all(AppTheme.accent),
+                              padding: const WidgetStatePropertyAll(
+                                EdgeInsets.symmetric(
+                                    horizontal: 10.0, vertical: 5.0),
+                              ),
+                            ),
                             child: const Text(
                               "Send Message",
                               style: TextStyle(color: Colors.white),
@@ -693,30 +697,37 @@ class _heroSection extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 20.0),
               child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Container(
-                      width: SizeConfig.blockSizeHorizontal! * 10,
+                      width: SizeConfig.blockSizeHorizontal! * 20,
                       height: 5,
                       color: AppTheme.accent,
                     ),
                     ListTile(
-                        leading: Image.asset(
-                          'images/logo.webp',
-                          fit: BoxFit.cover,
-                          width: 20,
-                          height: 20,
+                      leading: Image.asset(
+                        'images/logo.webp',
+                        fit: BoxFit.cover,
+                        width: 45,
+                        height: 45,
+                      ),
+                      title: const Expanded(
+                        flex: 1,
+                        child: Text(
+                          "KINGSLY",
+                          style: TextStyle(
+                              fontSize: 36.0,
+                              fontWeight: FontWeight.w700,
+                              color: Colors.white),
                         ),
-                        title: const Expanded(
-                          flex: 1,
-                          child: Text(
-                            "KINGSLY",
-                            style: TextStyle(
-                                // fontSize: SizeConfig.textFontSize!,
-                                fontWeight: FontWeight.w700,
-                                color: Colors.white),
-                          ),
+                      ),
+                      subtitle: const Text(
+                        "Academy",
+                        style: TextStyle(
+                          fontSize: 20,
                         ),
-                        subtitle: const Text("Academy")),
+                      ),
+                    ),
                     const Text(
                       "Re-writing the future",
                       textAlign: TextAlign.start,
