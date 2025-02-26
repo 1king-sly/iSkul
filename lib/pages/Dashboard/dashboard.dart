@@ -18,7 +18,7 @@ class _DashboardState extends State<Dashboard> {
     GlobalKey<ScaffoldState> _drawerKey = GlobalKey();
     return Scaffold(
       key: _drawerKey,
-      drawer: dashBoardDrawer,
+      drawer: const DashboardDrawer(),
       backgroundColor: AppTheme.white,
       appBar: !Responsive.isDesktop(context)
           ? AppBar(
@@ -35,9 +35,9 @@ class _DashboardState extends State<Dashboard> {
           padding: const EdgeInsets.all(4.0),
           child: Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
             if (Responsive.isDesktop(context))
-              Expanded(
+              const Expanded(
                 flex: 2,
-                child: dashBoardDrawer,
+                child: DashboardDrawer(),
               ),
             Expanded(
               flex: 9,

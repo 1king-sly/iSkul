@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:ischool/pages/landingPage/homepage.dart';
 import 'package:ischool/pages/Dashboard/dashboard.dart';
 import 'package:ischool/utils/app_styles.dart';
 
