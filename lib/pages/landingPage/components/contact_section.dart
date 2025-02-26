@@ -11,7 +11,7 @@ class ContactSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-        SizeConfig().init(context);
+    SizeConfig().init(context);
 
     final TextEditingController emailController = TextEditingController();
     final TextEditingController nameController = TextEditingController();
@@ -262,5 +262,3 @@ class ContactSection extends StatelessWidget {
     );
   }
 }
-
-

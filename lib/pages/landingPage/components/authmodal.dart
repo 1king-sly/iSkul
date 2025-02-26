@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:ischool/config/responsive.dart';
 import 'package:ischool/config/size_config.dart';
+import 'package:ischool/pages/Dashboard/dashboard.dart';
 import 'package:ischool/pages/landingPage/components/contact_form_field.dart';
 import 'package:ischool/utils/app_styles.dart';
 
@@ -66,7 +67,10 @@ class AuthModal extends StatelessWidget {
                 ),
                 const SizedBox(height: 10),
                 TextButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.of(context).pushReplacement(MaterialPageRoute(
+                        builder: (context) => const Dashboard()));
+                  },
                   style: ButtonStyle(
                     backgroundColor: WidgetStateProperty.all(AppTheme.accent),
                     padding: const WidgetStatePropertyAll(

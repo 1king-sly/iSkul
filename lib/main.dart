@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ischool/pages/landingPage/homepage.dart';
+import 'package:ischool/pages/Dashboard/dashboard.dart';
 import 'package:ischool/utils/app_styles.dart';
 
 void main() {
@@ -18,7 +19,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: AppTheme.primary),
         useMaterial3: true,
       ),
-      home: const Homepage(),
+      home: const Dashboard(),
     );
   }
 }
