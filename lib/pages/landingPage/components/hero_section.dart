@@ -17,7 +17,7 @@ class HeroSection extends StatelessWidget {
       height: SizeConfig.screenHeight!,
       decoration: const BoxDecoration(
         image: DecorationImage(
-            image: AssetImage('images/hero_bg.webp'), fit: BoxFit.cover),
+            image: AssetImage('assets/images/hero_bg.webp'), fit: BoxFit.cover),
       ),
       child: Stack(
         children: [
@@ -47,7 +47,7 @@ class HeroSection extends StatelessWidget {
                     ),
                     ListTile(
                       leading: Image.asset(
-                        'images/logo.webp',
+                        'assets/images/logo.webp',
                         fit: BoxFit.cover,
                         width: 45,
                         height: 45,

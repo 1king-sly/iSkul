@@ -23,7 +23,7 @@ class _DashboardDrawerState extends State<DashboardDrawer> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Image.asset('images/logo.webp', width: 100, height: 100),
+            Image.asset('assets/images/logo.webp', width: 100, height: 100),
             _buildDrawerItem(Icons.home_outlined, "Dashboard"),
             _buildDrawerItem(Icons.calendar_today_outlined, "Calendar"),
             _buildDrawerItem(Icons.widgets_outlined, "Classes"),

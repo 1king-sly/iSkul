@@ -52,7 +52,7 @@ class _HomepageState extends State<Homepage> {
               child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Image.asset('images/logo.webp'),
+                    Image.asset('assets/images/logo.webp'),
                     const SizedBox(height: 20.0),
                     const ListTile(
                       leading: Icon(Icons.home_outlined),
@@ -82,7 +82,7 @@ class _HomepageState extends State<Homepage> {
                 flex: 1,
                 child: Container(
                   padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                  child: Image.asset('images/logo.webp'),
+                  child: Image.asset('assets/images/logo.webp'),
                 ),
               ),
               Expanded(

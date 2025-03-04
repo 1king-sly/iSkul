@@ -76,7 +76,7 @@ class AboutSection extends StatelessWidget {
                     width: double.infinity,
                     decoration: const BoxDecoration(
                       image: DecorationImage(
-                          image: AssetImage("images/hero_bg.webp")),
+                          image: AssetImage("assets/images/hero_bg.webp")),
                     ),
                   ),
                 ),
@@ -134,7 +134,7 @@ class AboutSection extends StatelessWidget {
                   width: double.infinity,
                   decoration: const BoxDecoration(
                     image: DecorationImage(
-                        image: AssetImage("images/hero_bg.webp")),
+                        image: AssetImage("assets/images/hero_bg.webp")),
                   ),
                 ),
               ),
