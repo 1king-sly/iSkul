@@ -3,6 +3,7 @@ import 'package:ischool/config/responsive.dart';
 import 'package:ischool/utils/app_styles.dart';
 import 'package:ischool/utils/constants.dart';
 import 'package:ischool/config/size_config.dart';
+import 'package:table_calendar/table_calendar.dart';
 
 class Dashboard extends StatefulWidget {
   const Dashboard({super.key});
@@ -41,14 +42,66 @@ class _DashboardState extends State<Dashboard> {
               ),
             Expanded(
               flex: 9,
-              child: Container(
-                padding: const EdgeInsets.all(8.0),
-                width: double.infinity,
-                child: const SingleChildScrollView(
+              child: SingleChildScrollView(
+                child: Container(
+                  padding: const EdgeInsets.all(8.0),
+                  width: double.infinity,
+                  height: SizeConfig.screenHeight,
                   child: Column(
                       mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [Text("Dashboard")]),
+                      mainAxisSize: MainAxisSize.max,
+                      children: [
+                        Expanded(
+                          flex: 3,
+                          child: Container(
+                            width: double.infinity,
+                            padding: const EdgeInsets.all(8.0),
+                            child: Row(children: [
+                              Expanded(
+                                flex: 3,
+                                child: Container(
+                                  width: double.infinity,
+                                  color: Colors.yellow,
+                                ),
+                              ),
+                              const SizedBox(width: 10),
+                              Expanded(
+                                flex: 2,
+                                child: SizedBox(
+                                  width: double.infinity,
+                                  child: TableCalendar(
+                                      firstDay: DateTime.utc(2010, 10, 16),
+                                      lastDay: DateTime.utc(2030, 3, 14),
+                                      focusedDay: DateTime.now(),
+                                      calendarStyle: const CalendarStyle(
+                                        todayTextStyle: TextStyle(
+                                          color: Colors.white,
+                                        ),
+                                        todayDecoration: BoxDecoration(
+                                          color: Colors.blueAccent,
+                                        ),
+                                        selectedTextStyle: TextStyle(
+                                          color: Colors.white,
+                                        ),
+                                        selectedDecoration: BoxDecoration(
+                                          color: Colors.greenAccent,
+                                        ),
+                                      )),
+                                ),
+                              ),
+                            ]),
+                          ),
+                        ),
+                        const SizedBox(height: 10),
+                        Expanded(
+                          flex: 2,
+                          child: Container(
+                            width: double.infinity,
+                            color: Colors.blue,
+                          ),
+                        ),
+                      ]),
                 ),
               ),
             ),
