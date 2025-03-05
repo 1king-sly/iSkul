@@ -95,3 +95,17 @@ class MenuItem {
 
   MenuItem({required this.name, required this.icon});
 }
+
+class Teacher {
+  final String name;
+  final String subject;
+  final String contact;
+  final String image;
+
+  Teacher({
+    required this.name,
+    required this.subject,
+    required this.contact,
+    required this.image,
+  });
+}

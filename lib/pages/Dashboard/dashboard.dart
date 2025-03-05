@@ -40,14 +40,15 @@ class _DashboardState extends State<Dashboard> {
     ];
   }
 
-  void setCurrentIndex(int index) {
-    setState(() {
-      currentIndex = index;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
+    int setCurrentIndex(int index) {
+      setState(() {
+        currentIndex = index;
+      });
+      return currentIndex;
+    }
+
     SizeConfig().init(context);
     GlobalKey<ScaffoldState> _drawerKey = GlobalKey();
     return Scaffold(

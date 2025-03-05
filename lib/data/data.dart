@@ -37,7 +37,7 @@ final subjects = [
   Subject(name: "Biology", teacher: "Dr. Black"),
 ];
 
-final students = [
+final dummyStudents = [
   Student(
     name: "John Doe",
     admNumber:3424,
@@ -148,3 +148,56 @@ List<Exam> generateExams() {
 }
 
 final List<Exam> exams = generateExams();
+
+
+
+
+List<String> teacherNames = [
+  "Mr. Johnson",
+  "Ms. Smith",
+  "Dr. Adams",
+  "Mr. Brown",
+  "Ms. Wilson",
+  "Dr. Green",
+  "Mr. White",
+  "Ms. Carter",
+  "Dr. Black",
+];
+
+List<String> subjectNames = [
+  "Mathematics",
+  "English",
+  "Science",
+  "History",
+  "Geography",
+  "Computer Science",
+  "Physics",
+  "Chemistry",
+  "Biology",
+];
+
+List<String> teacherImages = [
+  "assets/images/teacher1.jpg",
+  "assets/images/teacher2.jpg",
+  "assets/images/teacher3.jpg",
+  "assets/images/teacher4.jpg",
+  "assets/images/teacher5.jpg",
+  "assets/images/teacher6.jpg",
+  "assets/images/teacher7.jpg",
+  "assets/images/teacher8.jpg",
+  "assets/images/teacher9.jpg",
+];
+
+List<Teacher> generateTeachers() {
+  Random random = Random();
+  return List.generate(teacherNames.length, (index) {
+    return Teacher(
+      name: teacherNames[index],
+      subject: subjectNames[index],
+      contact: "+2547${random.nextInt(90000000) + 1000000}",
+      image: "assets/images/hero_bg.webp",
+    );
+  });
+}
+
+final List<Teacher> dummyTeachers = generateTeachers();

@@ -2,24 +2,23 @@ import 'package:flutter/material.dart';
 import 'package:ischool/data/classes.dart';
 import 'package:ischool/data/data.dart';
 
-class StudentsProvider with ChangeNotifier {
+class TeachersProvider with ChangeNotifier {
   bool _isLoading = false;
-  List<Student> _students = [];
+  List<Teacher> _teachers = [];
 
   bool get isLoading => _isLoading;
-  List<Student> get students => _students;
+  List<Teacher> get teachers => _teachers;
 
-  Future<void> fetchStudents(String query) async {
+  Future<void> fetchTeachers(String query) async {
     _isLoading = true;
     notifyListeners();
 
     try {
-      _students = dummyStudents
+      _teachers = dummyTeachers
           .where(
-            (student) =>
-                student.name.toLowerCase().contains(query.toLowerCase()) ||
-                student.admNumber
-                    .toString()
+            (teacher) =>
+                teacher.name.toLowerCase().contains(query.toLowerCase()) ||
+                teacher.subject
                     .toLowerCase()
                     .contains(query.toLowerCase()),
           )
@@ -28,7 +27,7 @@ class StudentsProvider with ChangeNotifier {
           _isLoading = false;
     notifyListeners();
     } catch (e) {
-      throw Exception("An error Occured trying to query students,$e");
+      throw Exception("An error Occured trying to query teachers,$e");
     }
   }
 }

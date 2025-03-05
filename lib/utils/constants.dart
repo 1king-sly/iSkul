@@ -12,19 +12,15 @@ class DashboardDrawer extends StatefulWidget {
 }
 
 class _DashboardDrawerState extends State<DashboardDrawer> {
-  String activeItem = "Dashboard";
-
- 
-
   final List<MenuItem> menuItems = [
-    MenuItem(icon: Icons.home_outlined,name:'Dashboard'),
-    MenuItem(icon: Icons.assignment_outlined,name:'Exams'),
-    MenuItem(icon: Icons.group_outlined,name:'Students'),
-    MenuItem(icon: Icons.school_outlined,name:'Teachers'),
-    MenuItem(icon: Icons.widgets_outlined,name:'Classes'),
-    MenuItem(icon: Icons.people_alt_outlined,name:'Staff'),
-    MenuItem(icon: Icons.calendar_today_outlined,name:'Events'),
-    MenuItem(icon: Icons.check_circle_outline,name:'Attendance'),
+    MenuItem(icon: Icons.home_outlined, name: 'Dashboard'),
+    MenuItem(icon: Icons.assignment_outlined, name: 'Exams'),
+    MenuItem(icon: Icons.group_outlined, name: 'Students'),
+    MenuItem(icon: Icons.school_outlined, name: 'Teachers'),
+    MenuItem(icon: Icons.widgets_outlined, name: 'Classes'),
+    MenuItem(icon: Icons.people_alt_outlined, name: 'Staff'),
+    MenuItem(icon: Icons.calendar_today_outlined, name: 'Events'),
+    MenuItem(icon: Icons.check_circle_outline, name: 'Attendance'),
   ];
 
   @override
@@ -40,19 +36,16 @@ class _DashboardDrawerState extends State<DashboardDrawer> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Image.asset('assets/images/logo.webp', width: 100, height: 100),
-
             for (int i = 0; i < menuItems.length; i++)
               _buildDrawerItem(menuItems[i].icon, menuItems[i].name, i),
-
-
           ],
         ),
       ),
     );
   }
 
-  Widget _buildDrawerItem(IconData icon, String title,int index) {
-    bool isSelected = activeItem == title;
+  Widget _buildDrawerItem(IconData icon, String title, int index) {
+    int activeItem = 0;
 
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 4.0, horizontal: 1.0),
@@ -61,15 +54,14 @@ class _DashboardDrawerState extends State<DashboardDrawer> {
             topLeft: Radius.circular(20), bottomLeft: Radius.circular(20)),
         onTap: () {
           setState(() {
-            activeItem = title;
+            activeItem = widget.onItemSelected(index);
           });
-          widget.onItemSelected(index);
+
           if (!Responsive.isDesktop(context)) Navigator.pop(context);
-         
         },
         child: Container(
           padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 12),
-          decoration: isSelected
+          decoration: activeItem == index
               ? BoxDecoration(
                   color: AppTheme.accent,
                   borderRadius: const BorderRadius.only(
@@ -81,14 +73,17 @@ class _DashboardDrawerState extends State<DashboardDrawer> {
             children: [
               Icon(
                 icon,
-                color: isSelected ? Colors.white : Colors.grey.shade700,
+                color:
+                    activeItem == index ? Colors.white : Colors.grey.shade700,
               ),
               const SizedBox(width: 10),
               Text(
                 title,
                 style: TextStyle(
-                  color: isSelected ? Colors.white : Colors.grey.shade800,
-                  fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
+                  color:
+                      activeItem == index ? Colors.white : Colors.grey.shade800,
+                  fontWeight:
+                      activeItem == index ? FontWeight.bold : FontWeight.normal,
                 ),
               ),
             ],
