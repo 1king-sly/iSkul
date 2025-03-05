@@ -55,7 +55,7 @@ class _DashboardState extends State<Dashboard> {
                       mainAxisSize: MainAxisSize.max,
                       children: [
                         Expanded(
-                          flex: 3,
+                          flex: Responsive.isDesktop(context) ? 3 : 4,
                           child: Container(
                             width: double.infinity,
                             padding: const EdgeInsets.all(8.0),
@@ -166,11 +166,14 @@ class _DashboardState extends State<Dashboard> {
                                 ),
                               ),
                               const SizedBox(width: 10),
-                              const Calendar(),
+                              if (Responsive.isDesktop(context) ||
+                                  Responsive.isTablet(context))
+                                const Calendar(),
                             ]),
                           ),
                         ),
-                        const SizedBox(height: 10),
+                        if (Responsive.isDesktop(context))
+                          const SizedBox(height: 10),
                         Expanded(
                           flex: 2,
                           child: Container(
@@ -179,7 +182,9 @@ class _DashboardState extends State<Dashboard> {
                             child: ListView.separated(
                                 shrinkWrap: true,
                                 scrollDirection: Axis.horizontal,
-                                itemBuilder: (context, index) => ExamCard(exam: exams[index],),
+                                itemBuilder: (context, index) => ExamCard(
+                                      exam: exams[index],
+                                    ),
                                 separatorBuilder: (context, index) =>
                                     const SizedBox(width: 10),
                                 itemCount: exams.length),
@@ -196,8 +201,6 @@ class _DashboardState extends State<Dashboard> {
   }
 }
 
-
-
 class SchoolStats extends StatelessWidget {
   const SchoolStats({
     super.key,
@@ -207,10 +210,15 @@ class SchoolStats extends StatelessWidget {
   Widget build(BuildContext context) {
     return Expanded(
       child: GridView.builder(
+        physics: const NeverScrollableScrollPhysics(),
         itemCount: stats.length,
-        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 2,
-            childAspectRatio: 4,
+            childAspectRatio: Responsive.isTablet(context)
+                ? 4
+                : Responsive.isMobile(context)
+                    ? 3.5
+                    : 3,
             crossAxisSpacing: 5,
             mainAxisSpacing: 5),
         itemBuilder: (context, index) => Container(
@@ -221,16 +229,19 @@ class SchoolStats extends StatelessWidget {
               Radius.circular(10.0),
             ),
           ),
-          child: ListTile(
-            title: Text(
-              stats[index].total.toString(),
-              style: const TextStyle(
-                fontWeight: FontWeight.bold,
+          child: Center(
+            child: ListTile(
+              title: Text(
+                stats[index].total.toString(),
+                style: const TextStyle(
+                  fontWeight: FontWeight.bold,
+                ),
               ),
+              subtitle: Text(stats[index].name),
+              leading:
+                  Icon(stats[index].icon, size: 40, color: AppTheme.accent),
+              trailing: const Icon(Icons.arrow_right),
             ),
-            subtitle: Text(stats[index].name),
-            leading: Icon(stats[index].icon, size: 40, color: Colors.blue),
-            trailing: const Icon(Icons.arrow_right),
           ),
         ),
       ),

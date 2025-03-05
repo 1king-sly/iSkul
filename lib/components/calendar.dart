@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:ischool/utils/app_styles.dart';
 import 'package:table_calendar/table_calendar.dart';
-
 
 class Calendar extends StatelessWidget {
   const Calendar({
@@ -9,6 +9,7 @@ class Calendar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final DateTime _selectedDay = DateTime.now();
     return Expanded(
       flex: 2,
       child: Container(
@@ -21,21 +22,25 @@ class Calendar extends StatelessWidget {
         ),
         width: double.infinity,
         child: TableCalendar(
+          selectedDayPredicate: (day) {
+            return isSameDay(_selectedDay, day);
+          },
+          onDaySelected: (selectedDay, focusedDay) {},
           firstDay: DateTime.utc(2010, 10, 16),
           lastDay: DateTime.utc(2030, 3, 14),
           focusedDay: DateTime.now(),
-          calendarStyle: const CalendarStyle(
-            todayTextStyle: TextStyle(
+          calendarStyle: CalendarStyle(
+            todayTextStyle: const TextStyle(
               color: Colors.white,
             ),
             todayDecoration: BoxDecoration(
-              color: Colors.blueAccent,
+              color: AppTheme.accent,
               shape: BoxShape.circle,
             ),
-            selectedTextStyle: TextStyle(
+            selectedTextStyle: const TextStyle(
               color: Colors.white,
             ),
-            selectedDecoration: BoxDecoration(
+            selectedDecoration: const BoxDecoration(
               color: Colors.greenAccent,
               shape: BoxShape.circle,
             ),
