@@ -78,5 +78,20 @@ class Exam {
   final int students;
   final String meanGrade;
 
-  Exam({required this.level, required this.examtype, required this.term, required this.date, required this.meanPoints, required this.meanMarks, required this.students, required this.meanGrade});
+  Exam(
+      {required this.level,
+      required this.examtype,
+      required this.term,
+      required this.date,
+      required this.meanPoints,
+      required this.meanMarks,
+      required this.students,
+      required this.meanGrade});
+}
+
+class MenuItem {
+  final String name;
+  final IconData icon;
+
+  MenuItem({required this.name, required this.icon});
 }

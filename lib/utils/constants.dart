@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:ischool/config/responsive.dart';
+import 'package:ischool/data/classes.dart';
 import 'package:ischool/utils/app_styles.dart';
 
 class DashboardDrawer extends StatefulWidget {
-  const DashboardDrawer({super.key});
+  final Function(int) onItemSelected;
+  const DashboardDrawer({super.key, required this.onItemSelected});
 
   @override
   State<DashboardDrawer> createState() => _DashboardDrawerState();
@@ -10,6 +13,19 @@ class DashboardDrawer extends StatefulWidget {
 
 class _DashboardDrawerState extends State<DashboardDrawer> {
   String activeItem = "Dashboard";
+
+ 
+
+  final List<MenuItem> menuItems = [
+    MenuItem(icon: Icons.home_outlined,name:'Dashboard'),
+    MenuItem(icon: Icons.assignment_outlined,name:'Exams'),
+    MenuItem(icon: Icons.group_outlined,name:'Students'),
+    MenuItem(icon: Icons.school_outlined,name:'Teachers'),
+    MenuItem(icon: Icons.widgets_outlined,name:'Classes'),
+    MenuItem(icon: Icons.people_alt_outlined,name:'Staff'),
+    MenuItem(icon: Icons.calendar_today_outlined,name:'Events'),
+    MenuItem(icon: Icons.check_circle_outline,name:'Attendance'),
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -24,21 +40,18 @@ class _DashboardDrawerState extends State<DashboardDrawer> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Image.asset('assets/images/logo.webp', width: 100, height: 100),
-            _buildDrawerItem(Icons.home_outlined, "Dashboard"),
-            _buildDrawerItem(Icons.calendar_today_outlined, "Calendar"),
-            _buildDrawerItem(Icons.widgets_outlined, "Classes"),
-            _buildDrawerItem(Icons.group_outlined, "Students"),
-            _buildDrawerItem(Icons.school_outlined, "Teachers"),
-            _buildDrawerItem(Icons.people_alt_outlined, "Staff"),
-            _buildDrawerItem(Icons.assignment_outlined, "Exams"),
-            _buildDrawerItem(Icons.check_circle_outline, "Attendance"),
+
+            for (int i = 0; i < menuItems.length; i++)
+              _buildDrawerItem(menuItems[i].icon, menuItems[i].name, i),
+
+
           ],
         ),
       ),
     );
   }
 
-  Widget _buildDrawerItem(IconData icon, String title) {
+  Widget _buildDrawerItem(IconData icon, String title,int index) {
     bool isSelected = activeItem == title;
 
     return Padding(
@@ -50,7 +63,9 @@ class _DashboardDrawerState extends State<DashboardDrawer> {
           setState(() {
             activeItem = title;
           });
-          Navigator.pop(context);
+          widget.onItemSelected(index);
+          if (!Responsive.isDesktop(context)) Navigator.pop(context);
+         
         },
         child: Container(
           padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 12),
