@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:ischool/components/calendar.dart';
+import 'package:ischool/components/exam_card.dart';
 import 'package:ischool/config/responsive.dart';
+import 'package:ischool/data/data.dart';
 import 'package:ischool/utils/app_styles.dart';
 import 'package:ischool/utils/constants.dart';
 import 'package:ischool/config/size_config.dart';
-import 'package:table_calendar/table_calendar.dart';
 
 class Dashboard extends StatefulWidget {
   const Dashboard({super.key});
@@ -60,36 +62,111 @@ class _DashboardState extends State<Dashboard> {
                             child: Row(children: [
                               Expanded(
                                 flex: 3,
-                                child: Container(
-                                  width: double.infinity,
-                                  color: Colors.yellow,
+                                child: Column(
+                                  children: [
+                                    Expanded(
+                                      child: Container(
+                                        width: double.infinity,
+                                        decoration: const BoxDecoration(
+                                          borderRadius: BorderRadius.all(
+                                            Radius.circular(8.0),
+                                          ),
+                                          image: DecorationImage(
+                                            image: AssetImage(
+                                                'assets/images/hero_bg.webp'),
+                                            fit: BoxFit.cover,
+                                          ),
+                                        ),
+                                        child: Stack(
+                                          children: [
+                                            Container(
+                                              width: double.infinity,
+                                              decoration: const BoxDecoration(
+                                                borderRadius: BorderRadius.all(
+                                                  Radius.circular(8.0),
+                                                ),
+                                                color: Color.fromARGB(
+                                                    150, 0, 0, 0),
+                                              ),
+                                            ),
+                                            Padding(
+                                              padding:
+                                                  const EdgeInsets.all(8.0),
+                                              child: Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.start,
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.center,
+                                                  children: [
+                                                    Expanded(
+                                                      flex: 1,
+                                                      child: Row(children: [
+                                                        Container(
+                                                          width: 50,
+                                                          decoration:
+                                                              const BoxDecoration(
+                                                            shape:
+                                                                BoxShape.circle,
+                                                            image:
+                                                                DecorationImage(
+                                                              image: AssetImage(
+                                                                  'assets/images/hero_bg.webp'),
+                                                              fit: BoxFit.cover,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                        const SizedBox(
+                                                            width: 20),
+                                                        const Expanded(
+                                                          flex: 1,
+                                                          child: Column(
+                                                            mainAxisAlignment:
+                                                                MainAxisAlignment
+                                                                    .center,
+                                                            crossAxisAlignment:
+                                                                CrossAxisAlignment
+                                                                    .start,
+                                                            children: [
+                                                              Text(
+                                                                "Welcome back, Rajab Zuma",
+                                                                style:
+                                                                    TextStyle(
+                                                                  color: Colors
+                                                                      .white,
+                                                                  fontSize: 16,
+                                                                ),
+                                                              ),
+                                                              SizedBox(
+                                                                  height: 10),
+                                                              Text(
+                                                                'Manage Exams from the comfort of your phone',
+                                                                maxLines: 2,
+                                                                style:
+                                                                    TextStyle(
+                                                                  color: Colors
+                                                                      .white,
+                                                                ),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                        ),
+                                                      ]),
+                                                    ),
+                                                    const SizedBox(width: 20),
+                                                    const Spacer(flex: 1),
+                                                  ]),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                    const SizedBox(height: 10),
+                                    const SchoolStats(),
+                                  ],
                                 ),
                               ),
                               const SizedBox(width: 10),
-                              Expanded(
-                                flex: 2,
-                                child: SizedBox(
-                                  width: double.infinity,
-                                  child: TableCalendar(
-                                      firstDay: DateTime.utc(2010, 10, 16),
-                                      lastDay: DateTime.utc(2030, 3, 14),
-                                      focusedDay: DateTime.now(),
-                                      calendarStyle: const CalendarStyle(
-                                        todayTextStyle: TextStyle(
-                                          color: Colors.white,
-                                        ),
-                                        todayDecoration: BoxDecoration(
-                                          color: Colors.blueAccent,
-                                        ),
-                                        selectedTextStyle: TextStyle(
-                                          color: Colors.white,
-                                        ),
-                                        selectedDecoration: BoxDecoration(
-                                          color: Colors.greenAccent,
-                                        ),
-                                      )),
-                                ),
-                              ),
+                              const Calendar(),
                             ]),
                           ),
                         ),
@@ -97,8 +174,15 @@ class _DashboardState extends State<Dashboard> {
                         Expanded(
                           flex: 2,
                           child: Container(
+                            padding: const EdgeInsets.symmetric(vertical: 8.0),
                             width: double.infinity,
-                            color: Colors.blue,
+                            child: ListView.separated(
+                                shrinkWrap: true,
+                                scrollDirection: Axis.horizontal,
+                                itemBuilder: (context, index) => ExamCard(exam: exams[index],),
+                                separatorBuilder: (context, index) =>
+                                    const SizedBox(width: 10),
+                                itemCount: exams.length),
                           ),
                         ),
                       ]),
@@ -106,6 +190,48 @@ class _DashboardState extends State<Dashboard> {
               ),
             ),
           ]),
+        ),
+      ),
+    );
+  }
+}
+
+
+
+class SchoolStats extends StatelessWidget {
+  const SchoolStats({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Expanded(
+      child: GridView.builder(
+        itemCount: stats.length,
+        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 2,
+            childAspectRatio: 4,
+            crossAxisSpacing: 5,
+            mainAxisSpacing: 5),
+        itemBuilder: (context, index) => Container(
+          padding: const EdgeInsets.all(2.0),
+          decoration: const BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.all(
+              Radius.circular(10.0),
+            ),
+          ),
+          child: ListTile(
+            title: Text(
+              stats[index].total.toString(),
+              style: const TextStyle(
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            subtitle: Text(stats[index].name),
+            leading: Icon(stats[index].icon, size: 40, color: Colors.blue),
+            trailing: const Icon(Icons.arrow_right),
+          ),
         ),
       ),
     );
