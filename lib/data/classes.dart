@@ -29,7 +29,7 @@ class Program {
 
 class Student {
   final String name;
-  final String image;
+  final String? image;
   final int grade;
   final int admNumber;
   final String contact;
@@ -39,7 +39,7 @@ class Student {
   Student(
       {required this.results,
       required this.name,
-      required this.image,
+       this.image,
       required this.grade,
       required this.admNumber,
       required this.contact,
@@ -100,12 +100,12 @@ class Teacher {
   final String name;
   final String subject;
   final String contact;
-  final String image;
+  final String? image;
 
   Teacher({
     required this.name,
     required this.subject,
     required this.contact,
-    required this.image,
+     this.image,
   });
 }

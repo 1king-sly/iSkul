@@ -9,23 +9,24 @@ class TeachersProvider with ChangeNotifier {
   bool get isLoading => _isLoading;
   List<Teacher> get teachers => _teachers;
 
-  Future<void> fetchTeachers(String query) async {
+  Future<List<Teacher>> fetchTeachers(String query) async {
     _isLoading = true;
     notifyListeners();
 
     try {
+      if (query.isEmpty) {
+        return [];
+      }
       _teachers = dummyTeachers
           .where(
             (teacher) =>
-                teacher.name.toLowerCase().contains(query.toLowerCase()) ||
-                teacher.subject
-                    .toLowerCase()
-                    .contains(query.toLowerCase()),
+                teacher.name.toLowerCase().contains(query.toLowerCase()),
           )
           .toList();
 
-          _isLoading = false;
-    notifyListeners();
+      _isLoading = false;
+      notifyListeners();
+      return _teachers;
     } catch (e) {
       throw Exception("An error Occured trying to query teachers,$e");
     }

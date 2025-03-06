@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:ischool/components/student_card.dart';
+import 'package:ischool/components/teacher_card.dart';
 import 'package:ischool/config/size_config.dart';
 import 'package:ischool/data/classes.dart';
 import 'package:ischool/providers/teachers_provider.dart';
@@ -24,7 +24,7 @@ class _TeachersState extends State<Teachers> {
     searchController;
   }
 
-    @override
+  @override
   void dispose() {
     searchController.dispose();
     super.dispose();
@@ -32,6 +32,8 @@ class _TeachersState extends State<Teachers> {
 
   @override
   Widget build(BuildContext context) {
+    List<Teacher> teachers = [];
+
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 40),
       width: double.infinity,
@@ -42,7 +44,12 @@ class _TeachersState extends State<Teachers> {
             children: [
               TextField(
                 controller: searchController,
-                onChanged: (_) => value.fetchTeachers(searchController.text),
+                onChanged: (_) async {
+                  if (searchController.text.isEmpty) {
+                    teachers = [];
+                  }
+                  teachers = await value.fetchTeachers(searchController.text);
+                },
                 decoration: InputDecoration(
                   prefixIcon: const Icon(
                     Icons.search,
@@ -50,7 +57,7 @@ class _TeachersState extends State<Teachers> {
                     size: 25,
                   ),
                   contentPadding: const EdgeInsets.all(15),
-                  hintText: "Search for student",
+                  hintText: "Search for teacher",
                   hintStyle: TextStyle(
                     color: Colors.grey.shade500,
                     fontSize: 16,
@@ -74,7 +81,7 @@ class _TeachersState extends State<Teachers> {
                   padding: const EdgeInsets.all(8.0),
                   child: GridView.builder(
                       shrinkWrap: true,
-                      itemCount: value.teachers.length,
+                      itemCount: teachers.length,
                       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                         childAspectRatio: Responsive.isTablet(context)
                             ? 4
@@ -89,7 +96,7 @@ class _TeachersState extends State<Teachers> {
                                 ? 1
                                 : 4,
                       ),
-                      itemBuilder: (context, index) => const StudentCard()),
+                      itemBuilder: (context, index) =>  TeacherCard(teacher: teachers[index],)),
                 ),
               )
             ],

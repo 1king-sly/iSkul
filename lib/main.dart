@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:ischool/pages/Dashboard/dashboard.dart';
 import 'package:ischool/pages/landingPage/homepage.dart';
+import 'package:ischool/providers/auth_provider.dart';
 import 'package:ischool/providers/students_providers.dart';
 import 'package:ischool/providers/teachers_provider.dart';
 import 'package:ischool/utils/app_styles.dart';
@@ -12,6 +13,7 @@ void main() {
     providers: [
         ChangeNotifierProvider(create: (context) => TeachersProvider()),
         ChangeNotifierProvider(create: (context) => StudentsProvider()),
+        ChangeNotifierProvider(create: (context) => AuthProvider()),
  
     ],
        child:const  MyApp()),

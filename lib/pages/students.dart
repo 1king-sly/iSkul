@@ -24,7 +24,7 @@ class _StudentsState extends State<Students> {
     searchController;
   }
 
-    @override
+  @override
   void dispose() {
     searchController.dispose();
     super.dispose();
@@ -32,6 +32,11 @@ class _StudentsState extends State<Students> {
 
   @override
   Widget build(BuildContext context) {
+    List<Student> students = [];
+
+    if (searchController.text.isEmpty) {
+      students = [];
+    }
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 40),
       width: double.infinity,
@@ -42,7 +47,9 @@ class _StudentsState extends State<Students> {
             children: [
               TextField(
                 controller: searchController,
-                onChanged: (_) => value.fetchStudents(searchController.text),
+                onChanged: (_) async {
+                  students = await value.fetchStudents(searchController.text);
+                },
                 decoration: InputDecoration(
                   prefixIcon: const Icon(
                     Icons.search,
@@ -74,7 +81,7 @@ class _StudentsState extends State<Students> {
                   padding: const EdgeInsets.all(8.0),
                   child: GridView.builder(
                       shrinkWrap: true,
-                      itemCount: value.students.length,
+                      itemCount: students.length,
                       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                         childAspectRatio: Responsive.isTablet(context)
                             ? 4
@@ -89,7 +96,9 @@ class _StudentsState extends State<Students> {
                                 ? 1
                                 : 4,
                       ),
-                      itemBuilder: (context, index) => const StudentCard()),
+                      itemBuilder: (context, index) => StudentCard(
+                            student: students[index],
+                          )),
                 ),
               )
             ],

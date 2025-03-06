@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:ischool/data/classes.dart';
+import 'package:ischool/utils/app_styles.dart';
 
 class StudentCard extends StatefulWidget {
-  const StudentCard({super.key});
+  final Student student;
+  const StudentCard({super.key, required this.student});
 
   @override
   State<StudentCard> createState() => _StudentCardState();
@@ -10,14 +13,47 @@ class StudentCard extends StatefulWidget {
 class _StudentCardState extends State<StudentCard> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(4.0),
-      width: double.infinity,
-      decoration: const BoxDecoration(
-        borderRadius: BorderRadius.all(
-          Radius.circular(5.0),
+    return GestureDetector(
+      onTap: () {},
+      child: Container(
+        padding: const EdgeInsets.all(4.0),
+        width: double.infinity,
+        decoration: const BoxDecoration(
+          borderRadius: BorderRadius.all(
+            Radius.circular(5.0),
+          ),
+          color: Colors.white,
         ),
-        color: Colors.white,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Container(
+              width: 100,
+              height: 100,
+              decoration: const BoxDecoration(
+                shape: BoxShape.circle,
+              ),
+              child: CircleAvatar(
+                backgroundColor: AppTheme.primary,
+                child: Text(
+                  widget.student.name[0],
+                  style: const TextStyle(fontSize: 24),
+                ),
+              ),
+            ),
+            Text(widget.student.name, style: const TextStyle(fontSize: 20)),
+            const SizedBox(height: 10),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const Text("Adm No: "),
+                Text(widget.student.admNumber.toString(),
+                    style: TextStyle(color: AppTheme.primary)),
+              ],
+            )
+          ],
+        ),
       ),
     );
   }

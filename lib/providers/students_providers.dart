@@ -9,11 +9,14 @@ class StudentsProvider with ChangeNotifier {
   bool get isLoading => _isLoading;
   List<Student> get students => _students;
 
-  Future<void> fetchStudents(String query) async {
+  Future<List<Student>> fetchStudents(String query) async {
     _isLoading = true;
     notifyListeners();
 
     try {
+      if (query.isEmpty) {
+        return [];
+      }
       _students = dummyStudents
           .where(
             (student) =>
@@ -25,8 +28,9 @@ class StudentsProvider with ChangeNotifier {
           )
           .toList();
 
-          _isLoading = false;
-    notifyListeners();
+      _isLoading = false;
+      notifyListeners();
+      return _students;
     } catch (e) {
       throw Exception("An error Occured trying to query students,$e");
     }
