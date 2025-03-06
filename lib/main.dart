@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:ischool/pages/Dashboard/dashboard.dart';
 import 'package:ischool/pages/landingPage/homepage.dart';
 import 'package:ischool/providers/auth_provider.dart';
 import 'package:ischool/providers/students_providers.dart';
@@ -34,7 +33,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: AppTheme.primary),
         useMaterial3: true,
       ),
-      home: const Dashboard(),
+      home: const Homepage(),
     );
   }
 }

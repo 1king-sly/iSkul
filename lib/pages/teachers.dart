@@ -32,21 +32,20 @@ class _TeachersState extends State<Teachers> {
 
   @override
   Widget build(BuildContext context) {
-    List<Teacher> teachers = [];
-
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 40),
       width: double.infinity,
       height: SizeConfig.screenHeight,
       child: Consumer<TeachersProvider>(
         builder: (BuildContext context, TeachersProvider value, Widget? child) {
+          List<Teacher> teachers = value.teachers;
           return Column(
             children: [
               TextField(
                 controller: searchController,
                 onChanged: (_) async {
                   if (searchController.text.isEmpty) {
-                    teachers = [];
+                    teachers = value.teachers;
                   }
                   teachers = await value.fetchTeachers(searchController.text);
                 },
@@ -84,9 +83,9 @@ class _TeachersState extends State<Teachers> {
                       itemCount: teachers.length,
                       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                         childAspectRatio: Responsive.isTablet(context)
-                            ? 4
+                            ? 2
                             : Responsive.isMobile(context)
-                                ? 3.5
+                                ? 2
                                 : 1,
                         crossAxisSpacing: 10,
                         mainAxisSpacing: 10,
@@ -96,7 +95,9 @@ class _TeachersState extends State<Teachers> {
                                 ? 1
                                 : 4,
                       ),
-                      itemBuilder: (context, index) =>  TeacherCard(teacher: teachers[index],)),
+                      itemBuilder: (context, index) => TeacherCard(
+                            teacher: teachers[index],
+                          )),
                 ),
               )
             ],

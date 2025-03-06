@@ -4,7 +4,7 @@ import 'package:ischool/data/data.dart';
 
 class TeachersProvider with ChangeNotifier {
   bool _isLoading = false;
-  List<Teacher> _teachers = [];
+  List<Teacher> _teachers = dummyTeachers;
 
   bool get isLoading => _isLoading;
   List<Teacher> get teachers => _teachers;
@@ -14,9 +14,6 @@ class TeachersProvider with ChangeNotifier {
     notifyListeners();
 
     try {
-      if (query.isEmpty) {
-        return [];
-      }
       _teachers = dummyTeachers
           .where(
             (teacher) =>

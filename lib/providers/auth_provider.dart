@@ -1,23 +1,30 @@
 import 'package:flutter/material.dart';
-import 'package:ischool/data/classes.dart';
-import 'package:ischool/data/data.dart';
 
 class AuthProvider with ChangeNotifier {
   bool _isLoading = false;
 
   bool get isLoading => _isLoading;
 
-  Future<void> authenticateUser(String email,String password) async {
+  Future<int> authenticateUser(String email, String password) async {
     _isLoading = true;
     notifyListeners();
 
-    try {
+    int statusCode;
 
+    try {
+      if (email == "admin@gmail.com" && password == "password") {
+        statusCode = 201;
+      } else {
+        statusCode = 401;
+      }
+
+      await Future.delayed(const Duration(seconds: 5));
 
       _isLoading = false;
       notifyListeners();
+      return statusCode;
     } catch (e) {
-      throw Exception("An error Occured trying to query students,$e");
+      throw Exception("An error Occured trying to authenticate user,$e");
     }
   }
 }

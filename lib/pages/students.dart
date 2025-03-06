@@ -48,8 +48,7 @@ class _StudentsState extends State<Students> {
       child: Expanded(
         child: PageView(
           controller: _pageController,
-          physics:
-              const NeverScrollableScrollPhysics(), 
+          physics: const NeverScrollableScrollPhysics(),
           children: [
             StudentsListScreen(onStudentTap: showStudentDetails),
             SingleStudentPage(student: selectedStudent, onBack: goBackToList),
@@ -123,9 +122,9 @@ class _StudentsListScreenState extends State<StudentsListScreen> {
                   itemCount: students.length,
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                     childAspectRatio: Responsive.isTablet(context)
-                        ? 4
+                        ? 2
                         : Responsive.isMobile(context)
-                            ? 3.5
+                            ? 2
                             : 1,
                     crossAxisSpacing: 10,
                     mainAxisSpacing: 10,

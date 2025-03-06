@@ -1,5 +1,6 @@
 import 'package:data_table_2/data_table_2.dart';
 import 'package:flutter/material.dart';
+import 'package:ischool/config/responsive.dart';
 import 'package:ischool/config/size_config.dart';
 import 'package:ischool/data/classes.dart';
 import 'package:ischool/utils/app_styles.dart';
@@ -12,6 +13,58 @@ class SingleStudentPage extends StatefulWidget {
 
   @override
   State<SingleStudentPage> createState() => _SingleStudentPageState();
+}
+
+String generateGrade(int marks) {
+  String grade;
+
+  switch (marks ~/ 10) {
+    case 10:
+    case 9:
+    case 8:
+      grade = 'A';
+      break;
+    case 7:
+      grade = 'B';
+      break;
+    case 6:
+      grade = 'C';
+      break;
+    case 5:
+      grade = 'D';
+      break;
+    default:
+      grade = 'F';
+      break;
+  }
+
+  return grade;
+}
+
+String generateRemarks(int marks) {
+  String remarks;
+
+  switch (marks ~/ 10) {
+    case 10:
+    case 9:
+    case 8:
+      remarks = 'Excellent Work';
+      break;
+    case 7:
+      remarks = 'Good work';
+      break;
+    case 6:
+      remarks = 'Can do better';
+      break;
+    case 5:
+      remarks = 'Aim higher';
+      break;
+    default:
+      remarks = 'Put more effort';
+      break;
+  }
+
+  return remarks;
 }
 
 class _SingleStudentPageState extends State<SingleStudentPage> {
@@ -89,9 +142,11 @@ class _SingleStudentPageState extends State<SingleStudentPage> {
                     ),
                   ],
                 ),
-                const Spacer(
-                  flex: 1,
-                ),
+                if (Responsive.isDesktop(context))
+                  const Spacer(
+                    flex: 1,
+                  ),
+                if (!Responsive.isDesktop(context)) const SizedBox(width: 10),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -140,32 +195,34 @@ class _SingleStudentPageState extends State<SingleStudentPage> {
               minWidth: 600,
               columns: const [
                 DataColumn2(
-                  label: Text('Column A'),
+                  label: Text('Name'),
                   size: ColumnSize.L,
                 ),
                 DataColumn(
-                  label: Text('Column B'),
+                  label: Text('Marks'),
                 ),
                 DataColumn(
-                  label: Text('Column C'),
+                  label: Text('Grade'),
                 ),
                 DataColumn(
-                  label: Text('Column D'),
+                  label: Text('Teacher'),
                 ),
                 DataColumn(
-                  label: Text('Column NUMBERS'),
-                  numeric: true,
+                  label: Text('Remarks'),
                 ),
               ],
               rows: List<DataRow>.generate(
-                100,
-                (index) => DataRow(cells: [
-                  DataCell(Text('A' * (10 - index % 10))),
-                  DataCell(Text('B' * (10 - (index + 5) % 10))),
-                  DataCell(Text('C' * (15 - (index + 5) % 10))),
-                  DataCell(Text('D' * (15 - (index + 10) % 10))),
-                  DataCell(Text(((index + 0.1) * 25.4).toString()))
-                ]),
+                user.results.length,
+                (index) => DataRow(
+                    color: WidgetStatePropertyAll(
+                        index % 2 == 0 ? Colors.grey.shade300 : Colors.white),
+                    cells: [
+                      DataCell(Text(user.results[index].subject.name)),
+                      DataCell(Text(user.results[index].marks.toString())),
+                      DataCell(Text(generateGrade(user.results[index].marks))),
+                      DataCell(Text(user.results[index].subject.teacher)),
+                      DataCell(Text(generateRemarks(user.results[index].marks)))
+                    ]),
               ),
             ),
           ),
