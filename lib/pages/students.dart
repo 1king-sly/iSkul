@@ -89,61 +89,67 @@ class _StudentsListScreenState extends State<StudentsListScreen> {
     if (searchController.text.isEmpty) {
       students = [];
     }
-    return Consumer<StudentsProvider>(
-      builder: (context, value, child) {
-        return Column(
-          children: [
-            TextField(
-              controller: searchController,
-              onChanged: (_) async {
-                students = await value.fetchStudents(searchController.text);
-              },
-              decoration: InputDecoration(
-                prefixIcon:
-                    const Icon(Icons.search, color: Colors.grey, size: 25),
-                contentPadding: const EdgeInsets.all(15),
-                hintText: "Search for student",
-                filled: true,
-                fillColor: Colors.white,
-                enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.grey.shade300),
-                    borderRadius: const BorderRadius.all(Radius.circular(20))),
-                focusedBorder: OutlineInputBorder(
-                  borderRadius: const BorderRadius.all(Radius.circular(20)),
-                  borderSide: BorderSide(color: AppTheme.accent),
-                ),
-              ),
-            ),
-            Expanded(
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: GridView.builder(
-                  shrinkWrap: true,
-                  itemCount: students.length,
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    childAspectRatio: Responsive.isTablet(context)
-                        ? 2
-                        : Responsive.isMobile(context)
-                            ? 2
-                            : 1,
-                    crossAxisSpacing: 10,
-                    mainAxisSpacing: 10,
-                    crossAxisCount: Responsive.isTablet(context)
-                        ? 2
-                        : Responsive.isMobile(context)
-                            ? 1
-                            : 4,
-                  ),
-                  itemBuilder: (context, index) => StudentCard(
-                    student: students[index],
-                    onTap: () => widget.onStudentTap(students[index]),
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 40),
+      width: double.infinity,
+      height: SizeConfig.screenHeight,
+      child: Consumer<StudentsProvider>(
+        builder: (context, value, child) {
+          return Column(
+            children: [
+              TextField(
+                controller: searchController,
+                onChanged: (_) async {
+                  students = await value.fetchStudents(searchController.text);
+                },
+                decoration: InputDecoration(
+                  prefixIcon:
+                      const Icon(Icons.search, color: Colors.grey, size: 25),
+                  contentPadding: const EdgeInsets.all(15),
+                  hintText: "Search for student",
+                  filled: true,
+                  fillColor: Colors.white,
+                  enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.grey.shade300),
+                      borderRadius:
+                          const BorderRadius.all(Radius.circular(20))),
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: const BorderRadius.all(Radius.circular(20)),
+                    borderSide: BorderSide(color: AppTheme.accent),
                   ),
                 ),
               ),
-            ),
-          ],
-        );
-      },
+              Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: GridView.builder(
+                    shrinkWrap: true,
+                    itemCount: students.length,
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      childAspectRatio: Responsive.isTablet(context)
+                          ? 2
+                          : Responsive.isMobile(context)
+                              ? 2
+                              : 1,
+                      crossAxisSpacing: 10,
+                      mainAxisSpacing: 10,
+                      crossAxisCount: Responsive.isTablet(context)
+                          ? 2
+                          : Responsive.isMobile(context)
+                              ? 1
+                              : 4,
+                    ),
+                    itemBuilder: (context, index) => StudentCard(
+                      student: students[index],
+                      onTap: () => widget.onStudentTap(students[index]),
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          );
+        },
+      ),
     );
   }
 }

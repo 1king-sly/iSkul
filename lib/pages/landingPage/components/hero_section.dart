@@ -23,10 +23,12 @@ class HeroSection extends StatelessWidget {
         children: [
           Container(
             width: double.infinity,
+            height: SizeConfig.screenHeight!,
             color: const Color.fromARGB(200, 0, 0, 0),
           ),
           Container(
             width: double.infinity,
+            height: SizeConfig.screenHeight!,
             alignment: const Alignment(-0.7, 0),
             child: Container(
               height: Responsive.isMobile(context)
