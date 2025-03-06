@@ -1,20 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:ischool/data/classes.dart';
+import 'package:ischool/pages/single_student_page.dart';
 import 'package:ischool/utils/app_styles.dart';
 
 class StudentCard extends StatefulWidget {
   final Student student;
-  const StudentCard({super.key, required this.student});
+  final VoidCallback onTap;
+  const StudentCard({super.key, required this.student, required this.onTap});
 
   @override
   State<StudentCard> createState() => _StudentCardState();
 }
 
 class _StudentCardState extends State<StudentCard> {
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {},
+      onTap:widget.onTap,
       child: Container(
         padding: const EdgeInsets.all(4.0),
         width: double.infinity,

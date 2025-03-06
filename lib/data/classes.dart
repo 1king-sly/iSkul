@@ -30,7 +30,7 @@ class Program {
 class Student {
   final String name;
   final String? image;
-  final int grade;
+  final Level grade;
   final int admNumber;
   final String contact;
   final String parent;

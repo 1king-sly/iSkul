@@ -42,7 +42,7 @@ final dummyStudents = [
     name: "John Doe",
     admNumber:3424,
     image: "assets/images/john_doe.jpg",
-    grade: 10,
+    grade: Level.one,
     contact: "+254712345678",
     parent: "Mr. Doe",
     results: subjects
@@ -54,7 +54,7 @@ final dummyStudents = [
     name: "Alice Johnson",
     admNumber:3017,
     image: "assets/images/alice_johnson.jpg",
-    grade: 11,
+    grade: Level.four,
     contact: "+254798765432",
     parent: "Mrs. Johnson",
     results: subjects
@@ -66,7 +66,7 @@ final dummyStudents = [
     name: "Michael Smith",
     admNumber:2023,
     image: "assets/images/michael_smith.jpg",
-    grade: 9,
+    grade: Level.three,
     contact: "+254723456789",
     parent: "Mr. Smith",
     results: subjects
@@ -78,7 +78,7 @@ final dummyStudents = [
     name: "Emily Brown",
     admNumber:4052,
     image: "assets/images/emily_brown.jpg",
-    grade: 12,
+    grade: Level.two,
     contact: "+254765432123",
     parent: "Mrs. Brown",
     results: subjects
@@ -90,7 +90,7 @@ final dummyStudents = [
     name: "Daniel Wilson",
     admNumber:2817,
     image: "assets/images/daniel_wilson.jpg",
-    grade: 10,
+    grade: Level.one,
     contact: "+254711122233",
     parent: "Mr. Wilson",
     results: subjects
